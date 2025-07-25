@@ -1,0 +1,3 @@
+[submodule "submodules/simbricks"]
+	path = submodules/simbricks
+	url = git@github.com:dslab-epfl/SimBricks-LPN.git

@@ -1,0 +1,11 @@
+*.a
+*.d
+*.o
+
+dsim/jpeg_decoder/jpeg_decoder_bm
+dsim/protoacc/protoacc_bm
+dsim/vta/vta_bm
+
+experiments/simbricks/workdir/
+experiments/simbricks/out/
+**/__pycache__

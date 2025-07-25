@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -z "${DIR_PROJECT_ROOT}" ] || [ -z "${DIR_SIMBRICKS}" ]; then
+  echo "Error: Some necessary environment variables are not set. Make sure direnv is set up and loads .envrc" >&2
+  exit 1
+fi
+
+exec python3 ${DIR_SIMBRICKS}/experiments/run.py --repo "${DIR_SIMBRICKS}" --workdir "${TMPDIR}" --cpdir "${TMPDIR}" --outdir "${DIR_PROJECT_ROOT}/experiments/simbricks/out" "$@"
