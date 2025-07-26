@@ -35,6 +35,7 @@ class VtaNode(NodeConfig):
                 # connect to the RPC server
                 "ip link set lo up",
                 "ip addr add 127.0.0.1/8 dev lo",
+                "lspci -v",
                 # Make VTA device available for control from user-space via
                 # VFIO
                 ("echo 1" " >/sys/module/vfio/parameters/enable_unsafe_noiommu_mode"),

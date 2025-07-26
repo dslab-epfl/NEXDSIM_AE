@@ -3,6 +3,41 @@ from simbricks.orchestration.experiment.experiment_environment import ExpEnv
 from simbricks.orchestration.simulators import *
 
 
+class Gem5MemSidechannelHost(Gem5Host):
+
+    def __init__(self, node_config: NodeConfig) -> None:
+        super().__init__(node_config)
+        self.cpu_freq = "3GHz"
+        self.mem_sidechannels = []
+        self.variant = "fast"
+
+    def run_cmd(self, env: ExpEnv) -> str:
+        cmd = super().run_cmd(env)
+        cmd += " "
+
+        for mem_sidechannel in self.mem_sidechannels:
+            cmd += (
+                "--simbricks-mem_sidechannel=connect"
+                f":{env.dev_mem_path(mem_sidechannel)}"
+            )
+            cmd += " "
+        return cmd
+
+
+class Gem5KvmMemSidechannelHost(Gem5MemSidechannelHost):
+
+    def __init__(self, node_config: NodeConfig) -> None:
+        super().__init__(node_config)
+        self.cpu_type = "X86KvmCPU"
+
+
+class Gem5O3MemSidechannelHost(Gem5MemSidechannelHost):
+
+    def __init__(self, node_config: NodeConfig) -> None:
+        super().__init__(node_config)
+        self.cpu_type = "O3CPU"
+
+
 class VTADev(PCIDevSim):
 
     def __init__(self) -> None:

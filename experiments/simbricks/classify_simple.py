@@ -44,52 +44,24 @@ for (
     experiment = exp.Experiment(
         f"classify_160-{model_name}-{inference_device.value}-{host_var}-{vta_op}-{cores}-{vta_clk_freq}"
     )
-    pci_vta_id = 2
+    pci_vta_id = 5
     sync = False
     if host_var == "gt":
-        pci_vta_id = 0
-        HostClass = sim.Gem5Host
+        HostClass = sim.Gem5MemSidechannelHost
         experiment.checkpoint = True
         sync = True
     elif host_var == "gk":
-        pci_vta_id = 0
-        HostClass = sim.Gem5KvmHost
+        HostClass = sim.Gem5KvmMemSidechannelHost
         sync = False
     elif host_var == "gem5_o3":
-
-        class CustomGem5(sim.Gem5Host):
-
-            def __init__(self, node_config: sim.NodeConfig) -> None:
-                super().__init__(node_config)
-                self.cpu_type = "O3CPU"
-                self.cpu_freq = "3GHz"
-                self.mem_sidechannels = []
-                self.variant = "fast"
-
-            def run_cmd(self, env: sim.ExpEnv) -> str:
-                cmd = super().run_cmd(env)
-                cmd += " "
-
-                for mem_sidechannel in self.mem_sidechannels:
-                    cmd += (
-                        "--simbricks-mem_sidechannel=connect"
-                        f":{env.dev_mem_path(mem_sidechannel)}"
-                    )
-                    cmd += " "
-                return cmd
-
-        HostClass = CustomGem5
+        HostClass = sim.Gem5O3MemSidechannelHost
         sync = True
         experiment.checkpoint = True
-        pci_vta_id = 0
 
     # Instantiate server
     server_cfg = node.VtaNode()
     server_cfg.nockp = True
     server_cfg.cores = cores
-    if host_var == "simics":
-        server_cfg.disk_image += "-simics"
-        server_cfg.kcmd_append = ""
     server_cfg.app = app.TvmClassifyLocal()
     server_cfg.app.device = inference_device
     server_cfg.app.model_name = model_name
@@ -113,13 +85,6 @@ for (
 
         vta.clock_freq = vta_clk_freq
         server.add_pcidev(vta)
-        if host_var == "simics":
-            server.debug_messages = False
-            server.start_ts = vta.start_tick = int(60 * 10**12)
-
-    # server.pci_latency = server.sync_period = vta.pci_latency = (
-    #     vta.sync_period
-    # ) = 400
 
     server.pci_latency = server.sync_period = vta.pci_latency = vta.sync_period = 400
 
