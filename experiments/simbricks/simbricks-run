@@ -5,4 +5,8 @@ if [ -z "${DIR_PROJECT_ROOT}" ] || [ -z "${DIR_SIMBRICKS}" ]; then
   exit 1
 fi
 
-exec python3 ${DIR_SIMBRICKS}/experiments/run.py --repo "${DIR_SIMBRICKS}" --workdir "${TMPDIR}" --cpdir "${TMPDIR}" --outdir "${DIR_PROJECT_ROOT}/experiments/simbricks/out" "$@"
+# We to put the SimBricks work directory under a shorter path outside repository. The reason is that SimBricks creates sockets, which are limited to 109 characters.
+mkdir -p "${TMPDIR}/simbricks"
+# ln -sf "${TMPDIR}/simbricks" "${DIR_PROJECT_ROOT}/experiments/simbricks/workdir"
+
+exec python3 ${DIR_SIMBRICKS}/experiments/run.py --repo "${DIR_SIMBRICKS}" --workdir "${TMPDIR}/simbricks" --cpdir "${TMPDIR}/simbricks" --outdir "${DIR_PROJECT_ROOT}/experiments/simbricks/out" "$@"
