@@ -1,5 +1,5 @@
 { pkgs ? import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/nixos-24.05.tar.gz";
+    url = "https://github.com/NixOS/nixpkgs/archive/nixos-25.05.tar.gz";
   }) {}
 }:
 
@@ -10,6 +10,8 @@ let
 in
 pkgs.mkShell {
   packages = [
+    pkgs.jdk17
+    pkgs.sbt
     python
     pkgs.scons
     pkgs.ninja
