@@ -38,6 +38,7 @@ pkgs.mkShell {
     pkgs.rsync
     pkgs.verilator
     pkgs.which
+    pkgs.less
   ];
 
   shellHook = ''
