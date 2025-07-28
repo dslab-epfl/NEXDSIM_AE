@@ -1,3 +1,21 @@
 [submodule "submodules/simbricks"]
 	path = submodules/simbricks
 	url = git@github.com:dslab-epfl/SimBricks-LPN.git
+[submodule "submodules/nex"]
+	path = submodules/nex
+	url = https://github.com/dslab-epfl/NEX
+[submodule "submodules/vta"]
+	path = submodules/vta
+	url = https://github.com/MJChku/tvm-vta-simbricks/
+[submodule "submodules/tvm"]
+	path = submodules/tvm
+	url = https://github.com/jonas-kaufmann/tvm-simbricks
+[submodule "submodules/gem5"]
+	path = submodules/gem5
+	url = https://github.com/MJChku/gem5.git
+[submodule "submodules/protoacc"]
+	path = submodules/protoacc
+	url = https://github.com/MJChku/protoacc.git
+[submodule "submodules/vta_fpga"]
+	path = submodules/vta_fpga
+	url = https://github.com/MJChku/VTA_FPGA.git
