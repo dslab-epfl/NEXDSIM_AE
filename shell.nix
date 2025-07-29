@@ -4,8 +4,22 @@
 }:
 
 let
-  python = pkgs.python310.withPackages (ps: with ps; [
+  python = pkgs.python312.withPackages (ps: with ps; [
     setuptools
+    opencv-python
+    numpy
+    decorator
+    typing-extensions
+    scipy
+    psutil
+    attrs
+    packaging
+    pytest
+    cloudpickle
+    cffi
+    matplotlib
+    mxnet
+    tornado
   ]);
 in
 pkgs.mkShell {
@@ -16,13 +30,15 @@ pkgs.mkShell {
     pkgs.scons
     pkgs.ninja
     pkgs.pkg-config
-    pkgs.gcc
+    pkgs.gcc12
     pkgs.mold-wrapped
     pkgs.glib
     pkgs.libpcap
     pkgs.boost
     pkgs.pixman
     pkgs.nlohmann_json
+    pkgs.protobuf
+    pkgs.capstone_4
     pkgs.gperftools
     pkgs.git
     pkgs.autoconf
@@ -41,6 +57,18 @@ pkgs.mkShell {
     pkgs.verilator
     pkgs.which
     pkgs.less
+    pkgs.util-linux
+    pkgs.gmp
+    pkgs.libmpc
+    pkgs.mpfr
+    pkgs.meson
+    pkgs.clang_18
+    pkgs.jq
+    pkgs.zstd
+    pkgs.cmake
+    pkgs.systemdMinimal
+    pkgs.llvmPackages_17.libllvm
+    pkgs.libbpf
   ];
 
   shellHook = ''

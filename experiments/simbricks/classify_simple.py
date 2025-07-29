@@ -42,7 +42,7 @@ for (
     vta_ops,
 ):
     experiment = exp.Experiment(
-        f"classify_160-{model_name}-{inference_device.value}-{host_var}-{vta_op}-{cores}-{vta_clk_freq}"
+        f"classify-{model_name}-{inference_device.value}-{host_var}-{vta_op}-{cores}-{vta_clk_freq}"
     )
     pci_vta_id = 5
     sync = False

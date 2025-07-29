@@ -191,7 +191,7 @@ void PACBm::DmaComplete(std::unique_ptr<pciebm::DMAOp> dma_op) {
     Registers_.completed_msg = started_task;
 
     // interupt indicate the protoacc is done
-    MsiXIssue(0);
+    //MsiXIssue(0);
     
     // TransitionCountLog(t_list, T_SIZE);
     return ;
@@ -343,7 +343,7 @@ void PACBm::ExecuteEvent(std::unique_ptr<pciebm::TimedEvent> evt) {
       // Registers_.ctrl = 0x2;
       Registers_.completed_msg = started_task;
       // interupt indicate the protoacc is done
-      MsiXIssue(0);
+      //MsiXIssue(0);
       // TransitionCountLog(t_list, T_SIZE);
       return;
   }
