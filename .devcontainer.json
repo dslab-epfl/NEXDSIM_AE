@@ -1,0 +1,16 @@
+{
+  "image": "kaufijonas/nexdsim:sosp25_ae",
+  "runArgs": [
+    "--device=/dev/kvm",
+    "--privileged"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "mkhl.direnv",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  },
+  "postAttachCommand": "bash -c \"sudo chmod 777 /dev/kvm\""
+}
