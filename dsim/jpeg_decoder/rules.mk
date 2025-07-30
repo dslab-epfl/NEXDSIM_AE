@@ -39,7 +39,7 @@ $(bin_jpeg_bm):$(bm_objs) $(lib_pciebm) $(lib_simbricks) $(lib_lpnsim)
 bin_workload_driver := $(d)jpeg_decoder_workload_driver
 workload_driver_objs := $(bin_workload_driver).o $(d)vfio.o
 
-$(bin_workload_driver): LDLIBS += -static-libstdc++ -static-libgcc
+$(bin_workload_driver): LDFLAGS += -static
 $(bin_workload_driver): $(workload_driver_objs)
 
 CLEAN := $(bin_jpeg_bm) $(bin_workload_driver) $(bm_objs) \
