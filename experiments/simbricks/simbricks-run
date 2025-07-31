@@ -5,4 +5,4 @@ if [ -z "${DIR_PROJECT_ROOT}" ] || [ -z "${DIR_SIMBRICKS}" ]; then
   exit 1
 fi
 
-exec python3 ${DIR_SIMBRICKS}/experiments/run.py --repo "${DIR_SIMBRICKS}" --workdir "${DIR_SIMBRICKS}/experiments/simbricks/workdir" --cpdir "${DIR_SIMBRICKS}/experiments/simbricks/workdir" --outdir "${DIR_PROJECT_ROOT}/experiments/simbricks/out" "$@"
+exec python3 ${DIR_SIMBRICKS}/experiments/run.py --repo "${DIR_SIMBRICKS}" --workdir "${DIR_PROJECT_ROOT}/experiments/simbricks/workdir" --cpdir "${DIR_PROJECT_ROOT}/experiments/simbricks/workdir" --outdir "${DIR_PROJECT_ROOT}/experiments/simbricks/out" "$@"
