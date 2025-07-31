@@ -9,67 +9,29 @@ git clone https://github.com/dslab-epfl/NEXDSIM_AE.git
 git submodule update --init --recursive
 ```
 
-2. Step 1, setup nix enviroment
-```
-sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
-nix-shell --pure
+2. Step 1, enter container
+We provide a Docker container since there are many repositories with a lot of specific dependencies involved. You can either enter the provided VS Code Dev Container (follow [this guide](https://code.visualstudio.com/docs/devcontainers/containers)) or enter the container manually:  
+```bash
+docker run -v $(pwd):/workspaces/NEXDSIM_AE/ --device=/dev/kvm --privileged -it kaufijonas/nexdsim:sosp25_ae /bin/bash -c "sudo chmod 666 /dev/kvm && /bin/bash"
 ```
 
-3. Step 2, make simbricks
+3. Step 2, make SimBricks
+Depending on your machine, this step may take up to an hour.
 ```
 cd submodules/simbricks
-make sims/external/gem5/ready
-make sims/external/qemu/ready
-make build-images
-make convert-images-raw
+make -j`nproc`
+make -j`nproc` sims/external/gem5/ready
+make -j`nproc` sims/external/qemu/ready
+make -j`nproc` build-images
 make -C sims/external/vta/simbricks
 make -C sims/external/protoacc/simbricks
 make sims/misc/jpeg_decoder/jpeg_decoder_verilator
 ```
 
-here we need to use `pkgs.gcc14` instead of `pkgs.gcc12`, replace the line in shell.nix temporaily, then build simbricks
-```
-cd submodules/simbricks
-CC=gcc CXX=g++ make -j
-```
-
-<!--  
-In the following, we will make RTL simulators, 
-
-```bash
-sudo apt install openjdk-17-jdk
-```
-
-In case you have java installed already, use the following one to choose the right version of java
-```bash
-sudo update-alternatives --config java 
-sudo update-alternatives --config javac
-```
-
-install sbt
-
-```bash
-sudo apt-get update
-sudo apt-get install apt-transport-https curl gnupg -yqq
-echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list
-echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
-curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo -H gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/scalasbt-release.gpg --import
-sudo chmod 644 /etc/apt/trusted.gpg.d/scalasbt-release.gpg
-sudo apt-get update
-sudo apt-get install sbt
-```
-
-```bash
-unset TVM_PATH
-unset VTA_HW_PATH
-make -C sims/external/vta/simbricks
-make -C sims/external/protoacc/simbricks
-``` -->
-
 4. Step 3, run gem5 based experiments
+TODO(Jiacheng): This needs the necessary commands
 
-
-enter `sudo su`, then enter `nix-shell`
+enter `sudo su`
 5. Ste 4, make nex. At `make menuconfig` step;
 in `Round Based Simulation Options`, enter the configs as mentioned in `submodules/nex/readme.md`. 
 install `scx` as mentioned in `submodules/nex/readme.md`.
