@@ -12,7 +12,7 @@ git submodule update --init --recursive
 2. Step 1, enter container
 We provide a Docker container since there are many repositories with a lot of specific dependencies involved. You can either enter the provided VS Code Dev Container (follow [this guide](https://code.visualstudio.com/docs/devcontainers/containers)) or enter the container manually:  
 ```bash
-docker run -v $(pwd):/workspaces/NEXDSIM_AE/ --device=/dev/kvm --privileged -it kaufijonas/nexdsim:sosp25_ae /bin/bash -c "sudo chmod 666 /dev/kvm && /bin/bash"
+docker run -v $(pwd):/NEXDSIM_AE/ --device=/dev/kvm --privileged -it kaufijonas/nexdsim:sosp25_ae /bin/bash -c "sudo chmod 666 /dev/kvm && /bin/bash"
 ```
 
 3. Step 2, make SimBricks

@@ -95,8 +95,8 @@ RUN mkdir -p /etc/sudoers.d \
     && chmod 0440 /etc/sudoers.d/90-${USERNAME}
 
 # Create a default workspace folder (VS Code will bind mount the project here)
-RUN mkdir -p /workspaces && chown ${USERNAME}:${USERNAME} /workspaces
-WORKDIR /workspaces
+RUN mkdir -p /NEXDSIM_AE && chown ${USERNAME}:${USERNAME} /NEXDSIM_AE
+WORKDIR /NEXDSIM_AE
 
 USER ${USERNAME}
 
@@ -114,4 +114,4 @@ RUN sudo rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /home/${USERNAME}/.config/direnv \
     && echo 'eval "$(direnv hook bash)"' >> /home/${USERNAME}/.bashrc \ 
     &&  echo '[whitelist]' > /home/ubuntu/.config/direnv/direnv.toml \
-    && echo 'prefix = ["/workspaces"]' >> /home/ubuntu/.config/direnv/direnv.toml
+    && echo 'prefix = ["/NEXDSIM_AE"]' >> /home/ubuntu/.config/direnv/direnv.toml
