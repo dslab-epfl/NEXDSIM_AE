@@ -8,6 +8,7 @@ class Gem5MemSidechannelHost(Gem5Host):
     def __init__(self, node_config: NodeConfig) -> None:
         super().__init__(node_config)
         self.cpu_freq = "3GHz"
+        self.cpu_type_cp = "X86AtomicSimpleCPU"
         self.mem_sidechannels = []
         self.variant = "fast"
 
