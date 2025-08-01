@@ -54,6 +54,7 @@ for acc_mode in rtl_mode:
                 node_config.app.pci_device = '0000:00:05.0'
                 e.checkpoint = True
                 host.cpu_type = 'O3CPU'
+                host.cpu_type_cp = "X86AtomicSimpleCPU"
                 host.variant = 'fast'
                 host.cpu_freq = '3GHz'
                 host.name = 'host0'
